@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    volumes:
+      - .:/var/app
+    environment:
+      APP_ROLE: web
+    ports:
+      - "3000:3000"
+  api:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/app
+      - /var/app/client/node_modules
+    environment:
+      APP_ROLE: api
+      RAILS_ENV: development
+    ports:
+      - "3001:3001"
